@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.trajano.commons</groupId>
 	<artifactId>commons-testing</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<parent>
 		<groupId>net.trajano.project</groupId>
@@ -16,7 +16,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/trajano/${project.artifactId}</connection>
 		<developerConnection>scm:git:ssh://git@github.com/trajano/${project.artifactId}.git</developerConnection>
-		<tag>commons-testing-1.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<dependencies>
 		<dependency>
