@@ -29,27 +29,40 @@ public final class UtilityClassTestUtil {
 	 * @param clazz
 	 *            utility class to verify.
 	 */
-	public static void assertUtilityClassWellDefined(final Class<?> clazz)
-			throws NoSuchMethodException, InvocationTargetException,
-			InstantiationException, IllegalAccessException {
+	public static void assertUtilityClassWellDefined(final Class<?> clazz) {
 		assert Modifier.isFinal(clazz.getModifiers());
 		assert clazz.getDeclaredConstructors().length == 1;
-		final Constructor<?> constructor = clazz.getDeclaredConstructor();
-		if (constructor.isAccessible()
-				|| !Modifier.isPrivate(constructor.getModifiers())) {
-			log.log(SEVERE,
-					"UtilityClassTestUtil.constructorNotPrivate", constructor); //$NON-NLS-1$
-			assert false;
-		}
-		constructor.setAccessible(true);
-		constructor.newInstance();
-		constructor.setAccessible(false);
-		for (final Method method : clazz.getMethods()) {
-			if (!Modifier.isStatic(method.getModifiers())
-					&& method.getDeclaringClass().equals(clazz)) {
-				log.log(SEVERE, "UtilityClassTestUtil.methodNotStatic", method); //$NON-NLS-1$
+		try {
+			final Constructor<?> constructor = clazz.getDeclaredConstructor();
+			if (constructor.isAccessible()
+					|| !Modifier.isPrivate(constructor.getModifiers())) {
+				log.log(SEVERE,
+						"UtilityClassTestUtil.constructorNotPrivate", constructor); //$NON-NLS-1$
 				assert false;
 			}
+			constructor.setAccessible(true);
+			constructor.newInstance();
+			constructor.setAccessible(false);
+			for (final Method method : clazz.getMethods()) {
+				if (!Modifier.isStatic(method.getModifiers())
+						&& method.getDeclaringClass().equals(clazz)) {
+					log.log(SEVERE,
+							"UtilityClassTestUtil.methodNotStatic", method); //$NON-NLS-1$
+					assert false;
+				}
+			}
+		} catch (final NoSuchMethodException e) {
+			throw new RuntimeException(e);
+		} catch (final SecurityException e) {
+			throw new RuntimeException(e);
+		} catch (final InstantiationException e) {
+			throw new RuntimeException(e);
+		} catch (final IllegalAccessException e) {
+			throw new RuntimeException(e);
+		} catch (final IllegalArgumentException e) {
+			throw new RuntimeException(e);
+		} catch (final InvocationTargetException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
