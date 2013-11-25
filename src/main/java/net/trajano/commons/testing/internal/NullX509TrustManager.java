@@ -17,8 +17,10 @@ public class NullX509TrustManager implements X509TrustManager {
 	 * @param authType
 	 *            authentication type
 	 */
+	@Override
 	public void checkClientTrusted(final X509Certificate[] chain,
 			final String authType) throws CertificateException {
+		// Does nothing
 	}
 
 	/**
@@ -29,8 +31,10 @@ public class NullX509TrustManager implements X509TrustManager {
 	 * @param authType
 	 *            authentication type
 	 */
+	@Override
 	public void checkServerTrusted(final X509Certificate[] chain,
 			final String authType) throws CertificateException {
+		// Does nothing
 	}
 
 	/**
@@ -38,7 +42,9 @@ public class NullX509TrustManager implements X509TrustManager {
 	 * 
 	 * @return empty array
 	 */
+	@Override
 	public X509Certificate[] getAcceptedIssuers() {
 		return new X509Certificate[0];
+		// Does nothing
 	}
 }
