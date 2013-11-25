@@ -8,8 +8,7 @@ import static javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+import java.security.GeneralSecurityException;
 import java.util.logging.Logger;
 
 import javax.net.ssl.HostnameVerifier;
@@ -51,9 +50,13 @@ public final class DisableSslCertificateCheckUtil {
 	/**
 	 * Disable trust checks for SSL connections. Saves the present ones if it is
 	 * not the disabled ones.
+	 * 
+	 * @throws GeneralSecurityException
+	 *             thrown when there is a problem disabling the SSL. Shouldn't
+	 *             happen unless there is something wrong with the Java
+	 *             implementation.
 	 */
-	public static void disableChecks() throws NoSuchAlgorithmException,
-			KeyManagementException {
+	public static void disableChecks() throws GeneralSecurityException {
 		if (disabled) {
 			return;
 		}
