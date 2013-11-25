@@ -65,7 +65,7 @@ public final class DisableSslCertificateCheckUtil {
 			// This invocation will always fail, but it will register the
 			// default SSL provider to the URL class.
 			log.log(Level.FINEST,
-					"DisableSSLCertificateCheckUtil.disableCertificateCheck");
+					"DisableSSLCertificateCheckUtil.disableCertificateCheck", e);
 		}
 		originalSslSocketFactory = getDefaultSSLSocketFactory();
 		originalHostnameVerifier = getDefaultHostnameVerifier();
