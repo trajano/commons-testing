@@ -8,16 +8,17 @@ import javax.net.ssl.SSLSession;
  */
 public class NullHostnameVerifier implements HostnameVerifier {
 
-	/**
-	 * Always return true.
-	 * 
-	 * @param hostname
-	 *            hostname
-	 * @param sslSession
-	 *            SSL session
-	 * @return true
-	 */
-	public boolean verify(final String hostname, final SSLSession sslSession) {
-		return true;
-	}
+    /**
+     * Always return true.
+     * 
+     * @param hostname
+     *            hostname
+     * @param sslSession
+     *            SSL session
+     * @return true
+     */
+    @Override
+    public boolean verify(final String hostname, final SSLSession sslSession) {
+        return true;
+    }
 }
