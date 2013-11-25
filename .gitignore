@@ -1,8 +1,12 @@
 *.iml
 .DS_Store
+.checkstyle
 .classpath
+.fbExcludeFilterFile
 .idea
 .metadata
+.pmd
+.pmdruleset.xml
 .project
 .settings/
 artifacts.jar
