@@ -1,6 +1,5 @@
 package net.trajano.commons.testing;
 
-import static java.util.logging.Level.FINEST;
 import static javax.net.ssl.HttpsURLConnection.getDefaultHostnameVerifier;
 import static javax.net.ssl.HttpsURLConnection.getDefaultSSLSocketFactory;
 import static javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier;
@@ -9,6 +8,7 @@ import static javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.net.ssl.HostnameVerifier;
@@ -65,7 +65,7 @@ public final class DisableSslCertificateCheckUtil {
 		} catch (final IOException e) {
 			// This invocation will always fail, but it will register the
 			// default SSL provider to the URL class.
-			log.log(FINEST,
+			log.log(Level.FINEST,
 					"DisableSSLCertificateCheckUtil.disableCertificateCheck");
 		}
 		originalSslSocketFactory = getDefaultSSLSocketFactory();
