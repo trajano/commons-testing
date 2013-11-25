@@ -53,13 +53,9 @@ public final class UtilityClassTestUtil {
             }
         } catch (final NoSuchMethodException e) {
             throw new TestingException(e);
-        } catch (final SecurityException e) {
-            throw new TestingException(e);
         } catch (final InstantiationException e) {
             throw new TestingException(e);
         } catch (final IllegalAccessException e) {
-            throw new TestingException(e);
-        } catch (final IllegalArgumentException e) {
             throw new TestingException(e);
         } catch (final InvocationTargetException e) {
             throw new TestingException(e);
