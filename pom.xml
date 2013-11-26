@@ -9,12 +9,12 @@
 	<groupId>net.trajano.commons</groupId>
 	<artifactId>commons-testing</artifactId>
 	<name>Commons Testing</name>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<description>This provides the common unit testing code.</description>
 	<scm>
 		<connection>scm:git:https://github.com/trajano/${project.artifactId}</connection>
 		<developerConnection>scm:git:ssh://git@github.com/trajano/${project.artifactId}.git</developerConnection>
-		<tag>commons-testing-1.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<dependencies>
 		<dependency>
