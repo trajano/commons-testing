@@ -35,6 +35,11 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
