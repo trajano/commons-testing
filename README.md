@@ -12,9 +12,6 @@ projects such as [JUnit][], [Mockito] or [Apache Commons][].
 libraries.  This project addresses the common testing functionality
 at the expense of version locking some dependencies.
 
-This library is also built to work with Java SE 6 environments in order to
-maximize compatibility.
-
 At present this implements [Utility class validation][1] and 
 [SSL certificate check bypass][2].
 

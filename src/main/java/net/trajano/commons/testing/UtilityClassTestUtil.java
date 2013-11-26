@@ -3,7 +3,6 @@ package net.trajano.commons.testing;
 import static java.util.logging.Level.SEVERE;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.logging.Logger;
@@ -28,37 +27,29 @@ public final class UtilityClassTestUtil {
      * 
      * @param clazz
      *            utility class to verify.
+     * @throws ReflectiveOperationException
+     *             problem accessing the class or its elements using reflection.
      */
-    public static void assertUtilityClassWellDefined(final Class<?> clazz) {
+    public static void assertUtilityClassWellDefined(final Class<?> clazz)
+            throws ReflectiveOperationException {
         assert Modifier.isFinal(clazz.getModifiers());
         assert clazz.getDeclaredConstructors().length == 1;
-        try {
-            final Constructor<?> constructor = clazz.getDeclaredConstructor();
-            if (constructor.isAccessible()
-                    || !Modifier.isPrivate(constructor.getModifiers())) {
-                log.log(SEVERE,
-                        "UtilityClassTestUtil.constructorNotPrivate", constructor); //$NON-NLS-1$
+        final Constructor<?> constructor = clazz.getDeclaredConstructor();
+        if (constructor.isAccessible()
+                || !Modifier.isPrivate(constructor.getModifiers())) {
+            log.log(SEVERE,
+                    "UtilityClassTestUtil.constructorNotPrivate", constructor); //$NON-NLS-1$
+            assert false;
+        }
+        constructor.setAccessible(true);
+        constructor.newInstance();
+        constructor.setAccessible(false);
+        for (final Method method : clazz.getMethods()) {
+            if (!Modifier.isStatic(method.getModifiers())
+                    && method.getDeclaringClass().equals(clazz)) {
+                log.log(SEVERE, "UtilityClassTestUtil.methodNotStatic", method); //$NON-NLS-1$
                 assert false;
             }
-            constructor.setAccessible(true);
-            constructor.newInstance();
-            constructor.setAccessible(false);
-            for (final Method method : clazz.getMethods()) {
-                if (!Modifier.isStatic(method.getModifiers())
-                        && method.getDeclaringClass().equals(clazz)) {
-                    log.log(SEVERE,
-                            "UtilityClassTestUtil.methodNotStatic", method); //$NON-NLS-1$
-                    assert false;
-                }
-            }
-        } catch (final NoSuchMethodException e) {
-            throw new TestingException(e);
-        } catch (final InstantiationException e) {
-            throw new TestingException(e);
-        } catch (final IllegalAccessException e) {
-            throw new TestingException(e);
-        } catch (final InvocationTargetException e) {
-            throw new TestingException(e);
         }
     }
 
