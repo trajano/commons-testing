@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.trajano</groupId>
 		<artifactId>trajano</artifactId>
-		<version>5-SNAPSHOT</version>
+		<version>5</version>
 	</parent>
 	<groupId>net.trajano.commons</groupId>
 	<artifactId>commons-testing</artifactId>
@@ -36,6 +36,15 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
@@ -53,7 +62,7 @@
 						<dependency>
 							<groupId>net.trajano</groupId>
 							<artifactId>coding-standards</artifactId>
-							<version>1.0.1-SNAPSHOT</version>
+							<version>1.1.0</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -84,12 +93,46 @@
 					</executions>
 				</plugin>
 				<plugin>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.9.1</version>
-				</plugin>
-				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>2.4</version>
+					<executions>
+						<execution>
+							<id>attach-jar</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+								<goal>test-jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<executions>
+						<execution>
+							<id>attach-javadoc</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+								<goal>test-jar</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<detectJavaApiLink>true</detectJavaApiLink>
+						<detectLinks>false</detectLinks>
+						<detectOfflineLinks>false</detectOfflineLinks>
+						<quiet>true</quiet>
+						<useStandardDocletOptions>true</useStandardDocletOptions>
+						<show>private</show>
+						<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+						<docletArtifact>
+							<groupId>org.umlgraph</groupId>
+							<artifactId>umlgraph</artifactId>
+							<version>5.6.6</version>
+						</docletArtifact>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-jxr-plugin</artifactId>
@@ -107,7 +150,7 @@
 						<dependency>
 							<groupId>net.trajano</groupId>
 							<artifactId>coding-standards</artifactId>
-							<version>1.0.1-SNAPSHOT</version>
+							<version>1.1.0</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -121,9 +164,23 @@
 						<dependency>
 							<groupId>net.trajano</groupId>
 							<artifactId>coding-standards</artifactId>
-							<version>1.0.1-SNAPSHOT</version>
+							<version>1.1.0</version>
 						</dependency>
 					</dependencies>
+				</plugin>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+								<goal>test-jar</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -154,7 +211,7 @@
 						<dependency>
 							<groupId>net.trajano</groupId>
 							<artifactId>coding-standards</artifactId>
-							<version>1.0.1-SNAPSHOT</version>
+							<version>1.1.0</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -164,7 +221,7 @@
 			<extension>
 				<groupId>net.trajano</groupId>
 				<artifactId>coding-standards</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
+				<version>1.1.0</version>
 			</extension>
 		</extensions>
 	</build>
@@ -174,7 +231,7 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<configuration>
 					<linkXRef>true</linkXRef>
-					<configLocation>config/checks.xml</configLocation>
+					<configLocation>config/checkstyle-configuration.xml</configLocation>
 					<includes>**/*.java,**/*.properties</includes>
 					<excludes>target/**,src/test/**</excludes>
 				</configuration>
@@ -230,24 +287,8 @@
 				<artifactId>maven-surefire-report-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-					<configLocation>config/checkstyle-configuration.xml</configLocation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<rulesets>
-						<ruleset>/config/pmd-rules.xml</ruleset>
-					</rulesets>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
-				<configuration>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
