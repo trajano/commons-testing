@@ -25,7 +25,8 @@ import net.trajano.commons.testing.internal.NullX509TrustManager;
  */
 public final class DisableSslCertificateCheckUtil {
     /**
-     * Flag to indicate that certificate checks are disabled.
+     * Flag to indicate that certificate checks are disabled. If this is true,
+     * then the process to disable the checks are not executed again.
      */
     private static boolean disabled;
 
@@ -60,10 +61,7 @@ public final class DisableSslCertificateCheckUtil {
             return;
         }
         try {
-            // CHECKSTYLE:OFF
-            // Ignore hardcoded URL.
-            new URL("https://0.0.0.0/").getContent();
-            // CHECKSTYLE:ON
+            new URL("https", "0", "/").getContent();
         } catch (final IOException e) {
             // This invocation will always fail, but it will register the
             // default SSL provider to the URL class.
