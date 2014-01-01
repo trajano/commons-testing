@@ -32,7 +32,7 @@ public final class DisableSslCertificateCheckUtil {
     /**
      * Logger.
      */
-    private static final Logger log = Logger.getLogger(
+    private static final Logger LOG = Logger.getLogger(
             DisableSslCertificateCheckUtil.class.getName(),
             "net.trajano.commons.testing.Messages");
 
@@ -60,11 +60,14 @@ public final class DisableSslCertificateCheckUtil {
             return;
         }
         try {
+            // CHECKSTYLE:OFF
+            // Ignore hardcoded URL.
             new URL("https://0.0.0.0/").getContent();
+            // CHECKSTYLE:ON
         } catch (final IOException e) {
             // This invocation will always fail, but it will register the
             // default SSL provider to the URL class.
-            log.log(Level.FINEST,
+            LOG.log(Level.FINEST,
                     "DisableSSLCertificateCheckUtil.disableCertificateCheck", e);
         }
         originalSslSocketFactory = getDefaultSSLSocketFactory();

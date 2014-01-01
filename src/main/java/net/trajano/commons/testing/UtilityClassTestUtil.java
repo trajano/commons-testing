@@ -18,7 +18,7 @@ public final class UtilityClassTestUtil {
     /**
      * Logger.
      */
-    private static final Logger log = Logger.getLogger(
+    private static final Logger LOG = Logger.getLogger(
             UtilityClassTestUtil.class.getName(),
             "net.trajano.commons.testing.Messages");
 
@@ -37,7 +37,7 @@ public final class UtilityClassTestUtil {
         final Constructor<?> constructor = clazz.getDeclaredConstructor();
         if (constructor.isAccessible()
                 || !Modifier.isPrivate(constructor.getModifiers())) {
-            log.log(SEVERE,
+            LOG.log(SEVERE,
                     "UtilityClassTestUtil.constructorNotPrivate", constructor); //$NON-NLS-1$
             assert false;
         }
@@ -47,7 +47,7 @@ public final class UtilityClassTestUtil {
         for (final Method method : clazz.getMethods()) {
             if (!Modifier.isStatic(method.getModifiers())
                     && method.getDeclaringClass().equals(clazz)) {
-                log.log(SEVERE, "UtilityClassTestUtil.methodNotStatic", method); //$NON-NLS-1$
+                LOG.log(SEVERE, "UtilityClassTestUtil.methodNotStatic", method); //$NON-NLS-1$
                 assert false;
             }
         }
