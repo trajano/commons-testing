@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UtilityClassTestUtil.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Commons Testing</a> &gt; <a href="index.source.html" class="el_package">net.trajano.commons.testing</a> &gt; <span class="el_source">UtilityClassTestUtil.java</span></div><h1>UtilityClassTestUtil.java</h1><pre class="source lang-java linenums">package net.trajano.commons.testing;
+
+import static java.util.logging.Level.SEVERE;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.logging.Logger;
+
+/**
+ * This provides a test to check certain properties of a utility class.
+ * Primarily that it has only one private constructor and no non-static methods
+ * and it is final.
+ * 
+ * @author Archimedes Trajano
+ */
+<span class="pc bpc" id="L17" title="1 of 2 branches missed.">public final class UtilityClassTestUtil {</span>
+    /**
+     * Logger.
+     */
+<span class="fc" id="L21">    private static final Logger LOG = Logger.getLogger(</span>
+            UtilityClassTestUtil.class.getName(),
+            &quot;net.trajano.commons.testing.Messages&quot;);
+
+    /**
+     * Verifies that a utility class is well defined.
+     * 
+     * @param clazz
+     *            utility class to verify.
+     * @throws ReflectiveOperationException
+     *             problem accessing the class or its elements using reflection.
+     */
+    public static void assertUtilityClassWellDefined(final Class&lt;?&gt; clazz)
+            throws ReflectiveOperationException {
+<span class="pc bpc" id="L35" title="1 of 4 branches missed.">        assert Modifier.isFinal(clazz.getModifiers());</span>
+<span class="pc bpc" id="L36" title="1 of 4 branches missed.">        assert clazz.getDeclaredConstructors().length == 1;</span>
+<span class="fc" id="L37">        final Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor();</span>
+<span class="pc bpc" id="L38" title="1 of 4 branches missed.">        if (constructor.isAccessible()</span>
+                || !Modifier.isPrivate(constructor.getModifiers())) {
+<span class="fc" id="L40">            LOG.log(SEVERE,</span>
+                    &quot;UtilityClassTestUtil.constructorNotPrivate&quot;, constructor); //$NON-NLS-1$
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            assert false;</span>
+        }
+<span class="fc" id="L44">        constructor.setAccessible(true);</span>
+<span class="fc" id="L45">        constructor.newInstance();</span>
+<span class="fc" id="L46">        constructor.setAccessible(false);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (final Method method : clazz.getMethods()) {</span>
+<span class="pc bpc" id="L48" title="1 of 4 branches missed.">            if (!Modifier.isStatic(method.getModifiers())</span>
+                    &amp;&amp; method.getDeclaringClass().equals(clazz)) {
+<span class="nc" id="L50">                LOG.log(SEVERE, &quot;UtilityClassTestUtil.methodNotStatic&quot;, method); //$NON-NLS-1$</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                assert false;</span>
+            }
+        }
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * Prevent instantiation of utility class.
+     */
+<span class="fc" id="L59">    private UtilityClassTestUtil() {</span>
+<span class="fc" id="L60">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

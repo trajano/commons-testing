@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DisableSslCertificateCheckUtil.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Commons Testing</a> &gt; <a href="index.source.html" class="el_package">net.trajano.commons.testing</a> &gt; <span class="el_source">DisableSslCertificateCheckUtil.java</span></div><h1>DisableSslCertificateCheckUtil.java</h1><pre class="source lang-java linenums">package net.trajano.commons.testing;
+
+import static javax.net.ssl.HttpsURLConnection.getDefaultHostnameVerifier;
+import static javax.net.ssl.HttpsURLConnection.getDefaultSSLSocketFactory;
+import static javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier;
+import static javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory;
+
+import java.io.IOException;
+import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+
+import net.trajano.commons.testing.internal.NullHostnameVerifier;
+import net.trajano.commons.testing.internal.NullX509TrustManager;
+
+/**
+ * Disables SSL certificate checks. Primarily used for doing integration testing
+ * against self-signed servers.
+ */
+public final class DisableSslCertificateCheckUtil {
+    /**
+     * Flag to indicate that certificate checks are disabled. If this is true,
+     * then the process to disable the checks are not executed again.
+     */
+    private static boolean disabled;
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L36">    private static final Logger LOG = Logger.getLogger(</span>
+            DisableSslCertificateCheckUtil.class.getName(),
+            &quot;net.trajano.commons.testing.Messages&quot;);
+
+    /**
+     * Original hostname verifier, set by {{@link #disableChecks()}.
+     */
+    private static HostnameVerifier originalHostnameVerifier;
+
+    /**
+     * Original SSL Socket factory, set by {{@link #disableChecks()}.
+     */
+    private static SSLSocketFactory originalSslSocketFactory;
+
+    /**
+     * Disable trust checks for SSL connections. Saves the present ones if it is
+     * not the disabled ones.
+     * 
+     * @throws GeneralSecurityException
+     *             thrown when there is a problem disabling the SSL. Shouldn't
+     *             happen unless there is something wrong with the Java
+     *             implementation.
+     */
+    public static void disableChecks() throws GeneralSecurityException {
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (disabled) {</span>
+<span class="fc" id="L61">            return;</span>
+        }
+        try {
+<span class="nc" id="L64">            new URL(&quot;https&quot;, &quot;0&quot;, &quot;/&quot;).getContent();</span>
+<span class="fc" id="L65">        } catch (final IOException e) {</span>
+            // This invocation will always fail, but it will register the
+            // default SSL provider to the URL class.
+<span class="fc" id="L68">            LOG.log(Level.FINEST,</span>
+                    &quot;DisableSSLCertificateCheckUtil.disableCertificateCheck&quot;, e);
+<span class="nc" id="L70">        }</span>
+<span class="fc" id="L71">        originalSslSocketFactory = getDefaultSSLSocketFactory();</span>
+<span class="fc" id="L72">        originalHostnameVerifier = getDefaultHostnameVerifier();</span>
+<span class="fc" id="L73">        final SSLContext context = SSLContext.getInstance(&quot;SSLv3&quot;);</span>
+<span class="fc" id="L74">        final TrustManager[] trustManagerArray = { new NullX509TrustManager() };</span>
+<span class="fc" id="L75">        context.init(null, trustManagerArray, null);</span>
+<span class="fc" id="L76">        setDefaultSSLSocketFactory(context.getSocketFactory());</span>
+<span class="fc" id="L77">        setDefaultHostnameVerifier(new NullHostnameVerifier());</span>
+<span class="fc" id="L78">        disabled = true;</span>
+<span class="fc" id="L79">    }</span>
+
+    /**
+     * This will re-enable the SSL checks after it was disabled by
+     * {@link #disableChecks()}.
+     */
+    public static void reenableChecks() {
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (!disabled) {</span>
+<span class="fc" id="L87">            return;</span>
+        }
+<span class="fc" id="L89">        setDefaultSSLSocketFactory(originalSslSocketFactory);</span>
+<span class="fc" id="L90">        setDefaultHostnameVerifier(originalHostnameVerifier);</span>
+<span class="fc" id="L91">        disabled = false;</span>
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * Prevent instantiation of utility class.
+     */
+<span class="fc" id="L97">    private DisableSslCertificateCheckUtil() {</span>
+<span class="fc" id="L98">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
