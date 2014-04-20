@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./PublicConstructorUtil.html" title="net.trajano.commons.testing.test.util.PublicConstructorUtil" alt="" coords="15,16,158,43"/>
-<area shape="rect" id="node1" href="./PublicConstructorUtil.html" title="&lt;TABLE&gt;" alt="" coords="5,5,169,53"/>
-<area shape="rect" id="node2_1" href="./NonFinalUtil.html" title="net.trajano.commons.testing.test.util.NonFinalUtil" alt="" coords="204,16,295,43"/>
-<area shape="rect" id="node2" href="./NonFinalUtil.html" title="&lt;TABLE&gt;" alt="" coords="193,5,305,53"/>
-<area shape="rect" id="node3_2" href="./MultipleConstructorUtil.html" title="net.trajano.commons.testing.test.util.MultipleConstructorUtil" alt="" coords="340,16,492,43"/>
-<area shape="rect" id="node3" href="./MultipleConstructorUtil.html" title="&lt;TABLE&gt;" alt="" coords="329,5,503,53"/>
+<area shape="rect" id="node1_0" href="./PublicConstructorUtil.html" title="net.trajano.commons.testing.test.util.PublicConstructorUtil" alt="" coords="15,16,161,43"/>
+<area shape="rect" id="node1" href="./PublicConstructorUtil.html" title="&lt;TABLE&gt;" alt="" coords="5,5,171,53"/>
+<area shape="rect" id="node2_1" href="./NonFinalUtil.html" title="net.trajano.commons.testing.test.util.NonFinalUtil" alt="" coords="207,16,300,43"/>
+<area shape="rect" id="node2" href="./NonFinalUtil.html" title="&lt;TABLE&gt;" alt="" coords="196,5,311,53"/>
+<area shape="rect" id="node3_2" href="./MultipleConstructorUtil.html" title="net.trajano.commons.testing.test.util.MultipleConstructorUtil" alt="" coords="346,16,499,43"/>
+<area shape="rect" id="node3" href="./MultipleConstructorUtil.html" title="&lt;TABLE&gt;" alt="" coords="335,5,510,53"/>
 </map>

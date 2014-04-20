@@ -5,8 +5,8 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.commons.testing.UtilityClassTestUtil
@@ -14,12 +14,12 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UtilityClassTestUtil </td></tr>
 		</table></td></tr>
-		</table>>, URL="./UtilityClassTestUtil.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./UtilityClassTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.commons.testing.DisableSslCertificateCheckUtil
 	c1 [label=<<table title="net.trajano.commons.testing.DisableSslCertificateCheckUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DisableSslCertificateCheckUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DisableSslCertificateCheckUtil </td></tr>
 		</table></td></tr>
-		</table>>, URL="./DisableSslCertificateCheckUtil.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./DisableSslCertificateCheckUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

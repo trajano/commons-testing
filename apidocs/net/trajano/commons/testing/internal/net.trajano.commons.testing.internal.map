@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./NullX509TrustManager.html" title="net.trajano.commons.testing.internal.NullX509TrustManager" alt="" coords="16,16,165,43"/>
-<area shape="rect" id="node1" href="./NullX509TrustManager.html" title="&lt;TABLE&gt;" alt="" coords="5,5,176,53"/>
-<area shape="rect" id="node2_1" href="./NullHostnameVerifier.html" title="net.trajano.commons.testing.internal.NullHostnameVerifier" alt="" coords="211,16,352,43"/>
-<area shape="rect" id="node2" href="./NullHostnameVerifier.html" title="&lt;TABLE&gt;" alt="" coords="200,5,363,53"/>
+<area shape="rect" id="node1_0" href="./NullHostnameVerifier.html" title="net.trajano.commons.testing.internal.NullHostnameVerifier" alt="" coords="15,16,161,43"/>
+<area shape="rect" id="node1" href="./NullHostnameVerifier.html" title="&lt;TABLE&gt;" alt="" coords="5,5,171,53"/>
+<area shape="rect" id="node2_1" href="./NullX509TrustManager.html" title="net.trajano.commons.testing.internal.NullX509TrustManager" alt="" coords="206,16,359,43"/>
+<area shape="rect" id="node2" href="./NullX509TrustManager.html" title="&lt;TABLE&gt;" alt="" coords="195,5,370,53"/>
 </map>

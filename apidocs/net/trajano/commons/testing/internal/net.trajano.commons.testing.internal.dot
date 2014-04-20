@@ -5,21 +5,21 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// net.trajano.commons.testing.internal.NullX509TrustManager
-	c6 [label=<<table title="net.trajano.commons.testing.internal.NullX509TrustManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NullX509TrustManager.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NullX509TrustManager </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NullX509TrustManager.html", fontname="arial", fontcolor="black", fontsize=10.0];
 	// net.trajano.commons.testing.internal.NullHostnameVerifier
-	c7 [label=<<table title="net.trajano.commons.testing.internal.NullHostnameVerifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NullHostnameVerifier.html">
+	c6 [label=<<table title="net.trajano.commons.testing.internal.NullHostnameVerifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NullHostnameVerifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NullHostnameVerifier </td></tr>
 		</table></td></tr>
-		</table>>, URL="./NullHostnameVerifier.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./NullHostnameVerifier.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.trajano.commons.testing.internal.NullX509TrustManager
+	c7 [label=<<table title="net.trajano.commons.testing.internal.NullX509TrustManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NullX509TrustManager.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NullX509TrustManager </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NullX509TrustManager.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
