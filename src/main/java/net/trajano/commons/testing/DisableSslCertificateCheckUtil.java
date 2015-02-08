@@ -38,6 +38,19 @@ public final class DisableSslCertificateCheckUtil {
             "net.trajano.commons.testing.Messages");
 
     /**
+     * Null host name verifier. Made it a constant to prevent new
+     * instantiations. Made public so the instance can be retrieved directly.
+     */
+    public static final HostnameVerifier NULL_HOSTNAME_VERIFIER = new NullHostnameVerifier();
+
+    /**
+     * Null SSL context. Made it a constant to prevent new instantiations. Made
+     * public so the instance can be retrieved directly. Normally this is not
+     * guarantee thread-safety so applications should not use this directly.
+     */
+    public static final SSLContext NULL_SSL_CONTEXT;
+
+    /**
      * Original hostname verifier, set by {{@link #disableChecks()}.
      */
     private static HostnameVerifier originalHostnameVerifier;
@@ -47,12 +60,15 @@ public final class DisableSslCertificateCheckUtil {
      */
     private static SSLSocketFactory originalSslSocketFactory;
 
-    public static SSLContext buildNullSslContext()
-            throws GeneralSecurityException {
-        final SSLContext context = SSLContext.getInstance("SSLv3");
-        final TrustManager[] trustManagerArray = { new NullX509TrustManager() };
-        context.init(null, trustManagerArray, null);
-        return context;
+    static {
+        try {
+            NULL_SSL_CONTEXT = SSLContext.getInstance("SSLv3");
+            final TrustManager[] trustManagerArray = { new NullX509TrustManager() };
+            NULL_SSL_CONTEXT.init(null, trustManagerArray, null);
+        } catch (final GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**
@@ -78,9 +94,9 @@ public final class DisableSslCertificateCheckUtil {
         }
         originalSslSocketFactory = getDefaultSSLSocketFactory();
         originalHostnameVerifier = getDefaultHostnameVerifier();
-        final SSLContext context = buildNullSslContext();
+        final SSLContext context = NULL_SSL_CONTEXT;
         setDefaultSSLSocketFactory(context.getSocketFactory());
-        setDefaultHostnameVerifier(new NullHostnameVerifier());
+        setDefaultHostnameVerifier(NULL_HOSTNAME_VERIFIER);
         disabled = true;
     }
 

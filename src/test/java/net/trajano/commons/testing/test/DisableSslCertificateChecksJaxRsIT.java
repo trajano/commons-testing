@@ -5,7 +5,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 
 import net.trajano.commons.testing.DisableSslCertificateCheckUtil;
-import net.trajano.commons.testing.internal.NullHostnameVerifier;
 
 import org.junit.Test;
 
@@ -24,9 +23,9 @@ public class DisableSslCertificateChecksJaxRsIT {
     public void testHttpsConnectionToGoogle() throws Exception {
         final Client client = ClientBuilder
                 .newBuilder()
-                .hostnameVerifier(new NullHostnameVerifier())
-                .sslContext(
-                        DisableSslCertificateCheckUtil.buildNullSslContext())
+                .hostnameVerifier(
+                        DisableSslCertificateCheckUtil.NULL_HOSTNAME_VERIFIER)
+                        .sslContext(DisableSslCertificateCheckUtil.NULL_SSL_CONTEXT)
                         .build();
         client.target(
                 "https://accounts.google.com/.well-known/openid-configuration")
@@ -43,9 +42,9 @@ public class DisableSslCertificateChecksJaxRsIT {
     public void testInvalidCertificate() throws Exception {
         final Client client = ClientBuilder
                 .newBuilder()
-                .hostnameVerifier(new NullHostnameVerifier())
-                .sslContext(
-                        DisableSslCertificateCheckUtil.buildNullSslContext())
+                .hostnameVerifier(
+                        DisableSslCertificateCheckUtil.NULL_HOSTNAME_VERIFIER)
+                        .sslContext(DisableSslCertificateCheckUtil.NULL_SSL_CONTEXT)
                         .build();
         client.target("https://tv.eurosport.com/").request().get();
     }
