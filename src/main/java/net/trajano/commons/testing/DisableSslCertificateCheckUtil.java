@@ -47,10 +47,18 @@ public final class DisableSslCertificateCheckUtil {
      */
     private static SSLSocketFactory originalSslSocketFactory;
 
+    public static SSLContext buildNullSslContext()
+            throws GeneralSecurityException {
+        final SSLContext context = SSLContext.getInstance("SSLv3");
+        final TrustManager[] trustManagerArray = { new NullX509TrustManager() };
+        context.init(null, trustManagerArray, null);
+        return context;
+    }
+
     /**
      * Disable trust checks for SSL connections. Saves the present ones if it is
      * not the disabled ones.
-     * 
+     *
      * @throws GeneralSecurityException
      *             thrown when there is a problem disabling the SSL. Shouldn't
      *             happen unless there is something wrong with the Java
@@ -70,9 +78,7 @@ public final class DisableSslCertificateCheckUtil {
         }
         originalSslSocketFactory = getDefaultSSLSocketFactory();
         originalHostnameVerifier = getDefaultHostnameVerifier();
-        final SSLContext context = SSLContext.getInstance("SSLv3");
-        final TrustManager[] trustManagerArray = { new NullX509TrustManager() };
-        context.init(null, trustManagerArray, null);
+        final SSLContext context = buildNullSslContext();
         setDefaultSSLSocketFactory(context.getSocketFactory());
         setDefaultHostnameVerifier(new NullHostnameVerifier());
         disabled = true;
