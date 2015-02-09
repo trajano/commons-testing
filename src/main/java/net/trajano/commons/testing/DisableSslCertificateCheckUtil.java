@@ -62,7 +62,7 @@ public final class DisableSslCertificateCheckUtil {
 
     static {
         try {
-            NULL_SSL_CONTEXT = SSLContext.getInstance("SSLv3");
+            NULL_SSL_CONTEXT = SSLContext.getInstance("TLSv1");
             final TrustManager[] trustManagerArray = { new NullX509TrustManager() };
             NULL_SSL_CONTEXT.init(null, trustManagerArray, null);
         } catch (final GeneralSecurityException e) {
