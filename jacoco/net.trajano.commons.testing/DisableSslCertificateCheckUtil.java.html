@@ -15,6 +15,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import net.trajano.commons.testing.internal.NullHostnameVerifier;
 import net.trajano.commons.testing.internal.NullX509TrustManager;
@@ -33,9 +34,21 @@ public final class DisableSslCertificateCheckUtil {
     /**
      * Logger.
      */
-<span class="fc" id="L36">    private static final Logger LOG = Logger.getLogger(</span>
-            DisableSslCertificateCheckUtil.class.getName(),
-            &quot;net.trajano.commons.testing.Messages&quot;);
+<span class="fc" id="L37">    private static final Logger LOG = Logger</span>
+            .getLogger(DisableSslCertificateCheckUtil.class.getName(),
+                    &quot;META-INF.Messages&quot;);
+
+    /**
+     * Null host name verifier. Made it a constant to prevent new
+     * instantiations. Made public so the instance can be retrieved directly.
+     */
+<span class="fc" id="L45">    public static final HostnameVerifier NULL_HOSTNAME_VERIFIER = new NullHostnameVerifier();</span>
+
+    /**
+     * Null trust manager. Made it a constant to prevent new instantiations.
+     * Made public so the instance can be retrieved directly.
+     */
+<span class="fc" id="L51">    public static final X509TrustManager NULL_TRUST_MANAGER = new NullX509TrustManager();</span>
 
     /**
      * Original hostname verifier, set by {{@link #disableChecks()}.
@@ -48,53 +61,79 @@ public final class DisableSslCertificateCheckUtil {
     private static SSLSocketFactory originalSslSocketFactory;
 
     /**
+     * &lt;p&gt;
+     * Constructs an unsecure SSL context. This SSL context is configured with a
+     * {@link #NULL_TRUST_MANAGER}. There is no guarantee that the
+     * {@link SSLContext} is thread-safe so new ones have to get created in
+     * order to be safe.
+     * &lt;/p&gt;
+     * &lt;p&gt;
+     * The &lt;code&gt;TLSv1&lt;/code&gt; is guaranteed to be present according to the
+     * {@link SSLContext} javadoc. The {@link SSLContext#getInstance(String)}
+     * method is used rather than {@link SSLContext#getDefault()} as the default
+     * context would have already been initialized therefore it would not allow
+     * us to execute
+     * {@link SSLContext#init(javax.net.ssl.KeyManager[], TrustManager[], java.security.SecureRandom)}
+     * .
+     * &lt;/p&gt;
+     *
+     * @return an unsecure SSL context.
+     * @throws GeneralSecurityException
+     */
+    public static SSLContext buildUnsecureSslContext()
+            throws GeneralSecurityException {
+<span class="fc" id="L85">        final SSLContext context = SSLContext.getInstance(&quot;TLSv1&quot;);</span>
+<span class="fc" id="L86">        final TrustManager[] trustManagerArray = { NULL_TRUST_MANAGER };</span>
+<span class="fc" id="L87">        context.init(null, trustManagerArray, null);</span>
+<span class="fc" id="L88">        return context;</span>
+    }
+
+    /**
      * Disable trust checks for SSL connections. Saves the present ones if it is
      * not the disabled ones.
-     * 
+     *
      * @throws GeneralSecurityException
      *             thrown when there is a problem disabling the SSL. Shouldn't
      *             happen unless there is something wrong with the Java
      *             implementation.
      */
     public static void disableChecks() throws GeneralSecurityException {
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (disabled) {</span>
-<span class="fc" id="L61">            return;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (disabled) {</span>
+<span class="fc" id="L102">            return;</span>
         }
         try {
-<span class="nc" id="L64">            new URL(&quot;https&quot;, &quot;0&quot;, &quot;/&quot;).getContent();</span>
-<span class="fc" id="L65">        } catch (final IOException e) {</span>
+<span class="nc" id="L105">            new URL(&quot;https&quot;, &quot;0&quot;, &quot;/&quot;).getContent();</span>
+<span class="fc" id="L106">        } catch (final IOException e) {</span>
             // This invocation will always fail, but it will register the
             // default SSL provider to the URL class.
-<span class="fc" id="L68">            LOG.log(Level.FINEST,</span>
+<span class="fc" id="L109">            LOG.log(Level.FINEST,</span>
                     &quot;DisableSSLCertificateCheckUtil.disableCertificateCheck&quot;, e);
-<span class="nc" id="L70">        }</span>
-<span class="fc" id="L71">        originalSslSocketFactory = getDefaultSSLSocketFactory();</span>
-<span class="fc" id="L72">        originalHostnameVerifier = getDefaultHostnameVerifier();</span>
-<span class="fc" id="L73">        final SSLContext context = SSLContext.getInstance(&quot;SSLv3&quot;);</span>
-<span class="fc" id="L74">        final TrustManager[] trustManagerArray = { new NullX509TrustManager() };</span>
-<span class="fc" id="L75">        context.init(null, trustManagerArray, null);</span>
-<span class="fc" id="L76">        setDefaultSSLSocketFactory(context.getSocketFactory());</span>
-<span class="fc" id="L77">        setDefaultHostnameVerifier(new NullHostnameVerifier());</span>
-<span class="fc" id="L78">        disabled = true;</span>
-<span class="fc" id="L79">    }</span>
+<span class="nc" id="L111">        }</span>
+<span class="fc" id="L112">        originalSslSocketFactory = getDefaultSSLSocketFactory();</span>
+<span class="fc" id="L113">        originalHostnameVerifier = getDefaultHostnameVerifier();</span>
+<span class="fc" id="L114">        final SSLContext context = buildUnsecureSslContext();</span>
+<span class="fc" id="L115">        setDefaultSSLSocketFactory(context.getSocketFactory());</span>
+<span class="fc" id="L116">        setDefaultHostnameVerifier(NULL_HOSTNAME_VERIFIER);</span>
+<span class="fc" id="L117">        disabled = true;</span>
+<span class="fc" id="L118">    }</span>
 
     /**
      * This will re-enable the SSL checks after it was disabled by
      * {@link #disableChecks()}.
      */
     public static void reenableChecks() {
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (!disabled) {</span>
-<span class="fc" id="L87">            return;</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (!disabled) {</span>
+<span class="fc" id="L126">            return;</span>
         }
-<span class="fc" id="L89">        setDefaultSSLSocketFactory(originalSslSocketFactory);</span>
-<span class="fc" id="L90">        setDefaultHostnameVerifier(originalHostnameVerifier);</span>
-<span class="fc" id="L91">        disabled = false;</span>
-<span class="fc" id="L92">    }</span>
+<span class="fc" id="L128">        setDefaultSSLSocketFactory(originalSslSocketFactory);</span>
+<span class="fc" id="L129">        setDefaultHostnameVerifier(originalHostnameVerifier);</span>
+<span class="fc" id="L130">        disabled = false;</span>
+<span class="fc" id="L131">    }</span>
 
     /**
      * Prevent instantiation of utility class.
      */
-<span class="fc" id="L97">    private DisableSslCertificateCheckUtil() {</span>
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L136">    private DisableSslCertificateCheckUtil() {</span>
+<span class="fc" id="L137">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.commons.testing.test.DisableSslCertificateChecksIT
-	c15 [label=<<table title="net.trajano.commons.testing.test.DisableSslCertificateChecksIT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DisableSslCertificateChecksIT.html">
+	c19 [label=<<table title="net.trajano.commons.testing.test.DisableSslCertificateChecksIT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DisableSslCertificateChecksIT.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DisableSslCertificateChecksIT </td></tr>
 		</table></td></tr>

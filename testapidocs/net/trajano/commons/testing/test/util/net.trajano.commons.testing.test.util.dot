@@ -10,22 +10,28 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.commons.testing.test.util.PublicConstructorUtil
-	c9 [label=<<table title="net.trajano.commons.testing.test.util.PublicConstructorUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PublicConstructorUtil.html">
+	c12 [label=<<table title="net.trajano.commons.testing.test.util.PublicConstructorUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PublicConstructorUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PublicConstructorUtil </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PublicConstructorUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.commons.testing.test.util.NonFinalUtil
-	c10 [label=<<table title="net.trajano.commons.testing.test.util.NonFinalUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NonFinalUtil.html">
+	c13 [label=<<table title="net.trajano.commons.testing.test.util.NonFinalUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NonFinalUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NonFinalUtil </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NonFinalUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.commons.testing.test.util.MultipleConstructorUtil
-	c11 [label=<<table title="net.trajano.commons.testing.test.util.MultipleConstructorUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultipleConstructorUtil.html">
+	c14 [label=<<table title="net.trajano.commons.testing.test.util.MultipleConstructorUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MultipleConstructorUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MultipleConstructorUtil </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MultipleConstructorUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.trajano.commons.testing.test.util.NonStaticMethodUtil
+	c15 [label=<<table title="net.trajano.commons.testing.test.util.NonStaticMethodUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NonStaticMethodUtil.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NonStaticMethodUtil </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NonStaticMethodUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
