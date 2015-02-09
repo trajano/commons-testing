@@ -25,8 +25,9 @@ public class DisableSslCertificateChecksJaxRsIT {
                 .newBuilder()
                 .hostnameVerifier(
                         DisableSslCertificateCheckUtil.NULL_HOSTNAME_VERIFIER)
-                        .sslContext(DisableSslCertificateCheckUtil.NULL_SSL_CONTEXT)
-                        .build();
+                        .sslContext(
+                        DisableSslCertificateCheckUtil
+                                .buildUnsecureSslContext()).build();
         client.target(
                 "https://accounts.google.com/.well-known/openid-configuration")
                 .request().get();
@@ -44,8 +45,9 @@ public class DisableSslCertificateChecksJaxRsIT {
                 .newBuilder()
                 .hostnameVerifier(
                         DisableSslCertificateCheckUtil.NULL_HOSTNAME_VERIFIER)
-                        .sslContext(DisableSslCertificateCheckUtil.NULL_SSL_CONTEXT)
-                        .build();
+                        .sslContext(
+                                DisableSslCertificateCheckUtil
+                                .buildUnsecureSslContext()).build();
         client.target("https://tv.eurosport.com/").request().get();
     }
 

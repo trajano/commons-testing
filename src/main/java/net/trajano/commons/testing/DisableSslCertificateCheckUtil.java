@@ -15,6 +15,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import net.trajano.commons.testing.internal.NullHostnameVerifier;
 import net.trajano.commons.testing.internal.NullX509TrustManager;
@@ -44,11 +45,10 @@ public final class DisableSslCertificateCheckUtil {
     public static final HostnameVerifier NULL_HOSTNAME_VERIFIER = new NullHostnameVerifier();
 
     /**
-     * Null SSL context. Made it a constant to prevent new instantiations. Made
-     * public so the instance can be retrieved directly. Normally this is not
-     * guarantee thread-safety so applications should not use this directly.
+     * Null trust manager. Made it a constant to prevent new instantiations.
+     * Made public so the instance can be retrieved directly.
      */
-    public static final SSLContext NULL_SSL_CONTEXT;
+    public static final X509TrustManager NULL_TRUST_MANAGER = new NullX509TrustManager();
 
     /**
      * Original hostname verifier, set by {{@link #disableChecks()}.
@@ -60,15 +60,32 @@ public final class DisableSslCertificateCheckUtil {
      */
     private static SSLSocketFactory originalSslSocketFactory;
 
-    static {
-        try {
-            NULL_SSL_CONTEXT = SSLContext.getInstance("TLSv1");
-            final TrustManager[] trustManagerArray = { new NullX509TrustManager() };
-            NULL_SSL_CONTEXT.init(null, trustManagerArray, null);
-        } catch (final GeneralSecurityException e) {
-            throw new AssertionError(e.toString(), e);
-        }
-
+    /**
+     * <p>
+     * Constructs an unsecure SSL context. This SSL context is configured with a
+     * {@link #NULL_TRUST_MANAGER}. There is no guarantee that the
+     * {@link SSLContext} is thread-safe so new ones have to get created in
+     * order to be safe.
+     * </p>
+     * <p>
+     * The <code>TLSv1</code> is guaranteed to be present according to the
+     * {@link SSLContext} javadoc. The {@link SSLContext#getInstance(String)}
+     * method is used rather than {@link SSLContext#getDefault()} as the default
+     * context would have already been initialized therefore it would not allow
+     * us to execute
+     * {@link SSLContext#init(javax.net.ssl.KeyManager[], TrustManager[], java.security.SecureRandom)}
+     * .
+     * </p>
+     *
+     * @return an unsecure SSL context.
+     * @throws GeneralSecurityException
+     */
+    public static SSLContext buildUnsecureSslContext()
+            throws GeneralSecurityException {
+        final SSLContext context = SSLContext.getInstance("TLSv1");
+        final TrustManager[] trustManagerArray = { NULL_TRUST_MANAGER };
+        context.init(null, trustManagerArray, null);
+        return context;
     }
 
     /**
@@ -94,7 +111,7 @@ public final class DisableSslCertificateCheckUtil {
         }
         originalSslSocketFactory = getDefaultSSLSocketFactory();
         originalHostnameVerifier = getDefaultHostnameVerifier();
-        final SSLContext context = NULL_SSL_CONTEXT;
+        final SSLContext context = buildUnsecureSslContext();
         setDefaultSSLSocketFactory(context.getSocketFactory());
         setDefaultHostnameVerifier(NULL_HOSTNAME_VERIFIER);
         disabled = true;
