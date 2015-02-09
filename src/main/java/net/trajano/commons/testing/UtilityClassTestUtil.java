@@ -1,30 +1,28 @@
 package net.trajano.commons.testing;
 
-import static java.util.logging.Level.SEVERE;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.logging.Logger;
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 
 /**
  * This provides a test to check certain properties of a utility class.
  * Primarily that it has only one private constructor and no non-static methods
  * and it is final.
- * 
+ *
  * @author Archimedes Trajano
  */
 public final class UtilityClassTestUtil {
     /**
-     * Logger.
+     * Resource bundle.
      */
-    private static final Logger LOG = Logger.getLogger(
-            UtilityClassTestUtil.class.getName(),
-            "net.trajano.commons.testing.Messages");
+    private static final ResourceBundle R = ResourceBundle
+            .getBundle("META-INF.Messages");
 
     /**
      * Verifies that a utility class is well defined.
-     * 
+     *
      * @param clazz
      *            utility class to verify.
      * @throws ReflectiveOperationException
@@ -32,14 +30,22 @@ public final class UtilityClassTestUtil {
      */
     public static void assertUtilityClassWellDefined(final Class<?> clazz)
             throws ReflectiveOperationException {
-        assert Modifier.isFinal(clazz.getModifiers());
-        assert clazz.getDeclaredConstructors().length == 1;
+        if (!Modifier.isFinal(clazz.getModifiers())) {
+            throw new AssertionError(MessageFormat.format(
+                    R.getString("UtilityClassTestUtil.notFinal"), //$NON-NLS-1$
+                    clazz));
+        }
+        if (clazz.getDeclaredConstructors().length != 1) {
+            throw new AssertionError(MessageFormat.format(
+                    R.getString("UtilityClassTestUtil.notOneConstructor"), //$NON-NLS-1$
+                    clazz));
+        }
         final Constructor<?> constructor = clazz.getDeclaredConstructor();
         if (constructor.isAccessible()
                 || !Modifier.isPrivate(constructor.getModifiers())) {
-            LOG.log(SEVERE,
-                    "UtilityClassTestUtil.constructorNotPrivate", constructor); //$NON-NLS-1$
-            assert false;
+            throw new AssertionError(MessageFormat.format(
+                    R.getString("UtilityClassTestUtil.constructorNotPrivate"), //$NON-NLS-1$
+                    constructor));
         }
         constructor.setAccessible(true);
         constructor.newInstance();
@@ -47,8 +53,9 @@ public final class UtilityClassTestUtil {
         for (final Method method : clazz.getMethods()) {
             if (!Modifier.isStatic(method.getModifiers())
                     && method.getDeclaringClass().equals(clazz)) {
-                LOG.log(SEVERE, "UtilityClassTestUtil.methodNotStatic", method); //$NON-NLS-1$
-                assert false;
+                throw new AssertionError(MessageFormat.format(
+                        R.getString("UtilityClassTestUtil.methodNotStatic"), //$NON-NLS-1$
+                        method));
             }
         }
     }

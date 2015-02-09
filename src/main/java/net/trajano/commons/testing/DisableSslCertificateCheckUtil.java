@@ -34,9 +34,9 @@ public final class DisableSslCertificateCheckUtil {
     /**
      * Logger.
      */
-    private static final Logger LOG = Logger.getLogger(
-            DisableSslCertificateCheckUtil.class.getName(),
-            "net.trajano.commons.testing.Messages");
+    private static final Logger LOG = Logger
+            .getLogger(DisableSslCertificateCheckUtil.class.getName(),
+                    "META-INF.Messages");
 
     /**
      * Null host name verifier. Made it a constant to prevent new
