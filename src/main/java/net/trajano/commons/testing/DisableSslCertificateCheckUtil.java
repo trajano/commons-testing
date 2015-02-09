@@ -66,7 +66,7 @@ public final class DisableSslCertificateCheckUtil {
             final TrustManager[] trustManagerArray = { new NullX509TrustManager() };
             NULL_SSL_CONTEXT.init(null, trustManagerArray, null);
         } catch (final GeneralSecurityException e) {
-            throw new RuntimeException(e);
+            throw new AssertionError(e.toString(), e);
         }
 
     }
