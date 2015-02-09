@@ -21,15 +21,13 @@ public final class UtilityClassTestUtil {
             .getBundle("META-INF.Messages");
 
     /**
-     * Verifies that a utility class is well defined.
+     * A utility class class is well defined if it is final and there is one and
+     * only one declared constructor.
      *
      * @param clazz
-     *            utility class to verify.
-     * @throws ReflectiveOperationException
-     *             problem accessing the class or its elements using reflection.
+     *            class to evaluate
      */
-    public static void assertUtilityClassWellDefined(final Class<?> clazz)
-            throws ReflectiveOperationException {
+    private static void assertUtilityClassClassWellDefined(final Class<?> clazz) {
         if (!Modifier.isFinal(clazz.getModifiers())) {
             throw new AssertionError(MessageFormat.format(
                     R.getString("UtilityClassTestUtil.notFinal"), //$NON-NLS-1$
@@ -40,7 +38,18 @@ public final class UtilityClassTestUtil {
                     R.getString("UtilityClassTestUtil.notOneConstructor"), //$NON-NLS-1$
                     clazz));
         }
-        final Constructor<?> constructor = clazz.getDeclaredConstructor();
+    }
+
+    /**
+     * A utility class constructor is well defined if it is private.
+     *
+     * @param constructor
+     * @throws ReflectiveOperationException
+     *             when there is a problem performing reflection on the class.
+     */
+    private static void assertUtilityClassConstructorWellDefined(
+            final Constructor<?> constructor)
+                    throws ReflectiveOperationException {
         if (constructor.isAccessible()
                 || !Modifier.isPrivate(constructor.getModifiers())) {
             throw new AssertionError(MessageFormat.format(
@@ -50,6 +59,17 @@ public final class UtilityClassTestUtil {
         constructor.setAccessible(true);
         constructor.newInstance();
         constructor.setAccessible(false);
+    }
+
+    /**
+     * Methods of a utility class should be static if it was defined on the
+     * class itself.
+     *
+     * @param clazz
+     *            class to evaluate
+     */
+    private static void assertUtilityClassMethodsWellDefined(
+            final Class<?> clazz) {
         for (final Method method : clazz.getMethods()) {
             if (!Modifier.isStatic(method.getModifiers())
                     && method.getDeclaringClass().equals(clazz)) {
@@ -58,6 +78,22 @@ public final class UtilityClassTestUtil {
                         method));
             }
         }
+    }
+
+    /**
+     * Verifies that a utility class is well defined.
+     *
+     * @param clazz
+     *            utility class to verify.
+     * @throws ReflectiveOperationException
+     *             problem accessing the class or its elements using reflection.
+     */
+    public static void assertUtilityClassWellDefined(final Class<?> clazz)
+            throws ReflectiveOperationException {
+        assertUtilityClassClassWellDefined(clazz);
+        final Constructor<?> constructor = clazz.getDeclaredConstructor();
+        assertUtilityClassConstructorWellDefined(constructor);
+        assertUtilityClassMethodsWellDefined(clazz);
     }
 
     /**
