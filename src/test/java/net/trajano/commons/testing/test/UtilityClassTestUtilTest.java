@@ -2,6 +2,7 @@ package net.trajano.commons.testing.test;
 
 import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
 import net.trajano.commons.testing.DisableSslCertificateCheckUtil;
+import net.trajano.commons.testing.EqualsTestUtil;
 import net.trajano.commons.testing.UtilityClassTestUtil;
 import net.trajano.commons.testing.test.util.MultipleConstructorUtil;
 import net.trajano.commons.testing.test.util.NonFinalUtil;
@@ -39,7 +40,7 @@ public class UtilityClassTestUtilTest {
 
     /**
      * Tests {@link DisableSslCertificateCheckUtil} which should be valid.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -48,8 +49,18 @@ public class UtilityClassTestUtilTest {
     }
 
     /**
+     * Tests {@link EqualsTestUtil} which should be valid.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testEqualsTestUtil() throws Exception {
+        assertUtilityClassWellDefined(EqualsTestUtil.class);
+    }
+
+    /**
      * Tests the utility class itself which should be valid.
-     * 
+     *
      * @throws Exception
      */
     @Test

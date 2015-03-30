@@ -17,3 +17,5 @@ pom.xml.releaseBackup
 release.properties
 target/
 thumbs.db
+/target/
+/target/

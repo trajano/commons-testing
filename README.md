@@ -11,9 +11,14 @@ projects such as [JUnit][], [Mockito][] or [Apache Commons][].  However, like
 [Mockito][] and [Selenium][], this project does not introduce any dependency
 to the project.
 
-This project implements [Utility class validation][1] and 
-[SSL certificate check bypass][2].  The [SSL certificate check bypass][2] code
-can also be used to [bypass certificate checks in JAX-RS][3] 
+This project implements the following utilities:
+
+* [Utility class validation][1]
+* [SSL certificate check bypass][2].
+* `equals()` and `hashCode()` validation.
+
+The [SSL certificate check bypass][2] code can also be used to [bypass 
+certificate checks in JAX-RS][3].
 
 From version 2.0.0 and above, Java 7 is required for the library to function.
 The older version of this artifact which works with Java 6 can be obtained with
