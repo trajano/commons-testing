@@ -52,23 +52,36 @@ public final class EqualsTestUtil {
     }
 
     /**
-     * Take two objects and ensure their are implemented correctly.
+     * Take two objects and ensure their are implemented correctly. Warnings are
+     * suppressed as this block of code will do things that normal developers
+     * are not supposed to do, but are needed to ensure that
+     * {@link #equals(Object)} is implemented correctly.
      *
      * @param o1
      *            first object
      * @param o2
      *            second object
      */
+    @SuppressWarnings("all")
     public static <T> void assertEqualsImplementedCorrectly(final T o1,
             final T o2) {
+        // symmetric
         assert o1.equals(o2);
         assert o2.equals(o1);
+
+        // this == object tests
         assert o1.equals(o1);
         assert o2.equals(o2);
+
+        // Different class checks
         assert !o1.equals(new EqualsTestUtil());
         assert !o2.equals(new EqualsTestUtil());
+
+        // Null tests
         assert !o1.equals(null);
         assert !o2.equals(null);
+
+        // hash code validity
         assert o1.hashCode() == o2.hashCode();
     }
 
