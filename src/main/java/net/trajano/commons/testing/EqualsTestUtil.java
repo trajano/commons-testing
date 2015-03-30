@@ -15,11 +15,9 @@ public final class EqualsTestUtil {
      *
      * @param objectBuilder
      *            object builder
-     * @throws Exception
-     *             thrown when there is a problem building the object
      */
     public static <T> void assertEqualsImplementedCorrectly(
-            final Callable<T> objectBuilder) throws Exception {
+            final Callable<T> objectBuilder) {
         assertEqualsImplementedCorrectly(objectBuilder, objectBuilder);
     }
 
@@ -30,15 +28,16 @@ public final class EqualsTestUtil {
      *            first object builder
      * @param objectBuilder2
      *            second object builder
-     * @throws Exception
-     *             thrown when there is a problem building the object
      */
     public static <T> void assertEqualsImplementedCorrectly(
-            final Callable<T> objectBuilder1, final Callable<T> objectBuilder2)
-            throws Exception {
-        final T o1 = objectBuilder1.call();
-        final T o2 = objectBuilder2.call();
-        assertEqualsImplementedCorrectly(o1, o2);
+            final Callable<T> objectBuilder1, final Callable<T> objectBuilder2) {
+        try {
+            final T o1 = objectBuilder1.call();
+            final T o2 = objectBuilder2.call();
+            assertEqualsImplementedCorrectly(o1, o2);
+        } catch (final Exception e) {
+            throw new AssertionError(e);
+        }
     }
 
     /**
