@@ -14,11 +14,11 @@ import java.util.ResourceBundle;
  * @author Archimedes Trajano
  */
 public final class UtilityClassTestUtil {
+
     /**
      * Resource bundle.
      */
-    private static final ResourceBundle R = ResourceBundle
-            .getBundle("META-INF.Messages");
+    private static final ResourceBundle R = ResourceBundle.getBundle("META-INF.Messages");
 
     /**
      * A utility class class is well defined if it is final and there is one and
@@ -28,14 +28,13 @@ public final class UtilityClassTestUtil {
      *            class to evaluate
      */
     private static void assertUtilityClassClassWellDefined(final Class<?> clazz) {
+
         if (!Modifier.isFinal(clazz.getModifiers())) {
-            throw new AssertionError(MessageFormat.format(
-                    R.getString("UtilityClassTestUtil.notFinal"), //$NON-NLS-1$
+            throw new AssertionError(MessageFormat.format(R.getString("UtilityClassTestUtil.notFinal"), //$NON-NLS-1$
                     clazz));
         }
         if (clazz.getDeclaredConstructors().length != 1) {
-            throw new AssertionError(MessageFormat.format(
-                    R.getString("UtilityClassTestUtil.notOneConstructor"), //$NON-NLS-1$
+            throw new AssertionError(MessageFormat.format(R.getString("UtilityClassTestUtil.notOneConstructor"), //$NON-NLS-1$
                     clazz));
         }
     }
@@ -44,16 +43,14 @@ public final class UtilityClassTestUtil {
      * A utility class constructor is well defined if it is private.
      *
      * @param constructor
+     *            constructor
      * @throws ReflectiveOperationException
      *             when there is a problem performing reflection on the class.
      */
-    private static void assertUtilityClassConstructorWellDefined(
-            final Constructor<?> constructor)
-                    throws ReflectiveOperationException {
-        if (constructor.isAccessible()
-                || !Modifier.isPrivate(constructor.getModifiers())) {
-            throw new AssertionError(MessageFormat.format(
-                    R.getString("UtilityClassTestUtil.constructorNotPrivate"), //$NON-NLS-1$
+    private static void assertUtilityClassConstructorWellDefined(final Constructor<?> constructor) throws ReflectiveOperationException {
+
+        if (constructor.isAccessible() || !Modifier.isPrivate(constructor.getModifiers())) {
+            throw new AssertionError(MessageFormat.format(R.getString("UtilityClassTestUtil.constructorNotPrivate"), //$NON-NLS-1$
                     constructor));
         }
         constructor.setAccessible(true);
@@ -68,13 +65,12 @@ public final class UtilityClassTestUtil {
      * @param clazz
      *            class to evaluate
      */
-    private static void assertUtilityClassMethodsWellDefined(
-            final Class<?> clazz) {
+    private static void assertUtilityClassMethodsWellDefined(final Class<?> clazz) {
+
         for (final Method method : clazz.getMethods()) {
-            if (!Modifier.isStatic(method.getModifiers())
-                    && method.getDeclaringClass().equals(clazz)) {
-                throw new AssertionError(MessageFormat.format(
-                        R.getString("UtilityClassTestUtil.methodNotStatic"), //$NON-NLS-1$
+            if (!Modifier.isStatic(method.getModifiers()) && method.getDeclaringClass()
+                    .equals(clazz)) {
+                throw new AssertionError(MessageFormat.format(R.getString("UtilityClassTestUtil.methodNotStatic"), //$NON-NLS-1$
                         method));
             }
         }
@@ -88,8 +84,8 @@ public final class UtilityClassTestUtil {
      * @throws ReflectiveOperationException
      *             problem accessing the class or its elements using reflection.
      */
-    public static void assertUtilityClassWellDefined(final Class<?> clazz)
-            throws ReflectiveOperationException {
+    public static void assertUtilityClassWellDefined(final Class<?> clazz) throws ReflectiveOperationException {
+
         assertUtilityClassClassWellDefined(clazz);
         final Constructor<?> constructor = clazz.getDeclaredConstructor();
         assertUtilityClassConstructorWellDefined(constructor);
@@ -100,5 +96,6 @@ public final class UtilityClassTestUtil {
      * Prevent instantiation of utility class.
      */
     private UtilityClassTestUtil() {
+
     }
 }

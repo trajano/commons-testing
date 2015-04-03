@@ -46,6 +46,12 @@
             <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>findbugs</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
@@ -102,7 +108,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.9.1</version>
+                    <version>2.10.2</version>
                     <executions>
                         <execution>
                             <id>attach-javadoc</id>
@@ -221,7 +227,7 @@
             <extension>
                 <groupId>net.trajano</groupId>
                 <artifactId>coding-standards</artifactId>
-                <version>1.1.2</version>
+                <version>2.0.1-SNAPSHOT</version>
             </extension>
         </extensions>
     </build>
