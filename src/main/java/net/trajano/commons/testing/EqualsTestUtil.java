@@ -65,9 +65,10 @@ public final class EqualsTestUtil {
      * suppressed as this block of code will do things that normal developers
      * are not supposed to do, but are needed to ensure that
      * {@link #equals(Object)} is implemented correctly.
+     * <p>
+     * The generic check is not put in to allow testing with different classes
+     * </p>
      *
-     * @param <T>
-     *            type
      * @param o1
      *            first object
      * @param o2
@@ -75,8 +76,8 @@ public final class EqualsTestUtil {
      */
     @SuppressWarnings("all")
     @SuppressFBWarnings()
-    public static <T> void assertEqualsImplementedCorrectly(final T o1,
-            final T o2) {
+    public static void assertEqualsImplementedCorrectly(final Object o1,
+            final Object o2) {
 
         // symmetric
         assert o1.equals(o2);
@@ -99,6 +100,19 @@ public final class EqualsTestUtil {
 
         // hash code validity
         assert o1.hashCode() == o2.hashCode();
+    }
+
+    /**
+     * Take a single object and ensure its equality is implemented correctly.
+     *
+     * @param <T>
+     *            type
+     * @param o
+     *            object
+     */
+    public static <T> void assertEqualsImplementedCorrectly(final T o) {
+
+        assertEqualsImplementedCorrectly(o, o);
     }
 
     /**
