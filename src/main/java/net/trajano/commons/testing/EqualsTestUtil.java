@@ -103,19 +103,6 @@ public final class EqualsTestUtil {
     }
 
     /**
-     * Take a single object and ensure its equality is implemented correctly.
-     *
-     * @param <T>
-     *            type
-     * @param o
-     *            object
-     */
-    public static <T> void assertEqualsImplementedCorrectly(final T o) {
-
-        assertEqualsImplementedCorrectly(o, o);
-    }
-
-    /**
      * Prevent instantiation of utility class.
      */
     private EqualsTestUtil() {
