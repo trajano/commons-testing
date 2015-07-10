@@ -1,13 +1,15 @@
 package net.trajano.commons.testing.test;
 
+import static org.junit.Assert.fail;
+
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
-import net.trajano.commons.testing.EqualsTestUtil;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import net.trajano.commons.testing.EqualsTestUtil;
 
 /**
  * Tests {@link EqualsClassTestUtil}.
@@ -76,7 +78,7 @@ public class EqualsTestUtilTest {
             final MissingHashCode i1 = new MissingHashCode(1);
             final MissingHashCode i2 = new MissingHashCode(1);
             EqualsTestUtil.assertEqualsImplementedCorrectly(i1, i2);
-            throw new RuntimeException("failure");
+            fail();
         } catch (final AssertionError e) {
         }
     }
@@ -90,7 +92,7 @@ public class EqualsTestUtilTest {
             final Integer i2 = ThreadLocalRandom.current()
                     .nextInt();
             EqualsTestUtil.assertEqualsImplementedCorrectly(i1, i2);
-            throw new RuntimeException("failure");
+            fail();
         } catch (final AssertionError e) {
         }
     }

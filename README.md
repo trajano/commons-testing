@@ -16,6 +16,7 @@ This project implements the following utilities:
 * [Utility class validation][1]
 * [SSL certificate check bypass][2].
 * `equals()` and `hashCode()` validation.
+* Resource loaders for testing.
 
 The [SSL certificate check bypass][2] code can also be used to [bypass 
 certificate checks in JAX-RS][3].

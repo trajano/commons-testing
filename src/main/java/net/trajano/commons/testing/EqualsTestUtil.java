@@ -48,19 +48,6 @@ public final class EqualsTestUtil {
     }
 
     /**
-     * Take a single object and ensure its equality is implemented correctly.
-     *
-     * @param <T>
-     *            type
-     * @param o
-     *            object
-     */
-    public static <T> void assertEqualsImplementedCorrectly(final T o) {
-
-        assertEqualsImplementedCorrectly(o, o);
-    }
-
-    /**
      * Take two objects and ensure their are implemented correctly. Warnings are
      * suppressed as this block of code will do things that normal developers
      * are not supposed to do, but are needed to ensure that
@@ -80,26 +67,57 @@ public final class EqualsTestUtil {
             final Object o2) {
 
         // symmetric
-        assert o1.equals(o2);
-        assert o2.equals(o1);
+        if (!o1.equals(o2)) {
+            throw new AssertionError("Expected " + o1 + " ==  " + o2);
+        }
+        if (!o2.equals(o1)) {
+            throw new AssertionError("Expected " + o2 + " ==  " + o1);
+        }
 
         // this == object tests
-        assert o1.equals(o1);
-        assert o2.equals(o2);
+        if (!o1.equals(o1)) {
+            throw new AssertionError("Expected " + o1 + " ==  " + o1);
+        }
+        if (!o2.equals(o2)) {
+            throw new AssertionError("Expected " + o2 + " ==  " + o2);
+        }
 
         // Different class checks
-        assert !o1.equals(new EqualsTestUtil());
-        assert !o2.equals(new EqualsTestUtil());
+        if (o1.equals(new EqualsTestUtil())) {
+            throw new AssertionError("Type of " + o1 + " does not match expected class");
+        }
+        if (o2.equals(new EqualsTestUtil())) {
+            throw new AssertionError("Type of " + o2 + " does not match expected class");
+        }
 
         // Null tests done poorly but will at least trigger the right paths.
 
         // CHECKSTYLE:OFF
-        assert !o1.equals(null); // NOPMD
-        assert !o2.equals(null); // NOPMD
+        if (o1.equals(null)) {
+            throw new AssertionError("Did not expect " + o1 + " == null");
+        }
+        if (o2.equals(null)) {
+            throw new AssertionError("Did not expect " + o2 + " == null");
+        }
         // CHECKSTYLE:ON
 
         // hash code validity
-        assert o1.hashCode() == o2.hashCode();
+        if (o1.hashCode() != o2.hashCode()) {
+            throw new AssertionError(String.format("Expected hash code of %s (%d) == %s (%d)", o1, o1.hashCode(), o2, o2.hashCode()));
+        }
+    }
+
+    /**
+     * Take a single object and ensure its equality is implemented correctly.
+     *
+     * @param <T>
+     *            type
+     * @param o
+     *            object
+     */
+    public static <T> void assertEqualsImplementedCorrectly(final T o) {
+
+        assertEqualsImplementedCorrectly(o, o);
     }
 
     /**
