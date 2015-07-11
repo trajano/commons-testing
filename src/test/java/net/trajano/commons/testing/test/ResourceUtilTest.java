@@ -53,8 +53,22 @@ public class ResourceUtilTest {
     }
 
     @Test
+    public void testReadBinary() throws Exception {
+
+        {
+            final byte[] bytes = ResourceUtil.getResourceAsBytes("sample.bin");
+            assertEquals(67646, bytes.length);
+        }
+        {
+            final byte[] bytes = ResourceUtil.getResourceAsBytes("sample.bin");
+            assertEquals(67646, bytes.length);
+        }
+    }
+
+    @Test
     public void testReadString() throws Exception {
 
+        assertEquals("hello world", ResourceUtil.getResourceAsString("sample.txt"));
         assertEquals("hello world", ResourceUtil.getResourceAsString("sample.txt"));
     }
 

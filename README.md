@@ -18,8 +18,8 @@ This project implements the following utilities:
 * `equals()` and `hashCode()` validation.
 * Resource loaders for testing.
 
-The [SSL certificate check bypass][2] code can also be used to [bypass 
-certificate checks in JAX-RS][3].
+The [SSL certificate check bypass][2] code can also be used to
+[bypass certificate checks in JAX-RS][3].
 
 From version 2.0.0 and above, Java 7 is required for the library to function.
 The older version of this artifact which works with Java 6 can be obtained with
