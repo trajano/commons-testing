@@ -45,7 +45,7 @@ public class UtilityClassTestUtilTest {
     }
 
     /**
-     * Tests {@link DisableSslCertificateCheckUtil} which should be valid.
+     * Tests {@link net.trajano.commons.testing.DisableSslCertificateCheckUtil} which should be valid.
      *
      * @throws Exception
      */
@@ -56,7 +56,7 @@ public class UtilityClassTestUtilTest {
     }
 
     /**
-     * Tests {@link EqualsTestUtil} which should be valid.
+     * Tests {@link net.trajano.commons.testing.EqualsTestUtil} which should be valid.
      *
      * @throws Exception
      */
