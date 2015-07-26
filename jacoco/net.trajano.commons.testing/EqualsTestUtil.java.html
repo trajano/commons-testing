@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EqualsTestUtil.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Commons Testing</a> &gt; <a href="index.source.html" class="el_package">net.trajano.commons.testing</a> &gt; <span class="el_source">EqualsTestUtil.java</span></div><h1>EqualsTestUtil.java</h1><pre class="source lang-java linenums">package net.trajano.commons.testing;
+
+import java.util.concurrent.Callable;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+/**
+ * This provides utility methods that ensure the {@link #equals(Object)} and
+ * {@link #hashCode()} are implemented correctly.
+ *
+ * @author Archimedes Trajano
+ */
+public final class EqualsTestUtil {
+
+    /**
+     * Builds two objects the same way and checks if they are equal.
+     *
+     * @param &lt;T&gt;
+     *            type
+     * @param objectBuilder
+     *            object builder
+     */
+    public static &lt;T&gt; void assertEqualsImplementedCorrectly(final Callable&lt;T&gt; objectBuilder) {
+
+<span class="fc" id="L25">        assertEqualsImplementedCorrectly(objectBuilder, objectBuilder);</span>
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * Builds two objects and ensures that they are equal.
+     *
+     * @param &lt;T&gt;
+     *            type
+     * @param objectBuilder1
+     *            first object builder
+     * @param objectBuilder2
+     *            second object builder
+     */
+    public static &lt;T&gt; void assertEqualsImplementedCorrectly(final Callable&lt;T&gt; objectBuilder1,
+            final Callable&lt;T&gt; objectBuilder2) {
+
+        try {
+<span class="fc" id="L42">            final T o1 = objectBuilder1.call();</span>
+<span class="fc" id="L43">            final T o2 = objectBuilder2.call();</span>
+<span class="fc" id="L44">            assertEqualsImplementedCorrectly(o1, o2);</span>
+<span class="nc" id="L45">        } catch (final Exception e) {</span>
+<span class="nc" id="L46">            throw new AssertionError(e);</span>
+<span class="fc" id="L47">        }</span>
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Take two objects and ensure their are implemented correctly. Warnings are
+     * suppressed as this block of code will do things that normal developers
+     * are not supposed to do, but are needed to ensure that
+     * {@link #equals(Object)} is implemented correctly.
+     * &lt;p&gt;
+     * The generic check is not put in to allow testing with different classes
+     * &lt;/p&gt;
+     *
+     * @param o1
+     *            first object
+     * @param o2
+     *            second object
+     */
+    @SuppressWarnings(&quot;all&quot;)
+    @SuppressFBWarnings()
+    public static void assertEqualsImplementedCorrectly(final Object o1,
+            final Object o2) {
+
+        // symmetric
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (!o1.equals(o2)) {</span>
+<span class="fc" id="L71">            throw new AssertionError(&quot;Expected &quot; + o1 + &quot; ==  &quot; + o2);</span>
+        }
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (!o2.equals(o1)) {</span>
+<span class="nc" id="L74">            throw new AssertionError(&quot;Expected &quot; + o2 + &quot; ==  &quot; + o1);</span>
+        }
+
+        // this == object tests
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (!o1.equals(o1)) {</span>
+<span class="nc" id="L79">            throw new AssertionError(&quot;Expected &quot; + o1 + &quot; ==  &quot; + o1);</span>
+        }
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if (!o2.equals(o2)) {</span>
+<span class="nc" id="L82">            throw new AssertionError(&quot;Expected &quot; + o2 + &quot; ==  &quot; + o2);</span>
+        }
+
+        // Different class checks
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (o1.equals(new EqualsTestUtil())) {</span>
+<span class="nc" id="L87">            throw new AssertionError(&quot;Type of &quot; + o1 + &quot; does not match expected class&quot;);</span>
+        }
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (o2.equals(new EqualsTestUtil())) {</span>
+<span class="nc" id="L90">            throw new AssertionError(&quot;Type of &quot; + o2 + &quot; does not match expected class&quot;);</span>
+        }
+
+        // Null tests done poorly but will at least trigger the right paths.
+
+        // CHECKSTYLE:OFF
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (o1.equals(null)) {</span>
+<span class="nc" id="L97">            throw new AssertionError(&quot;Did not expect &quot; + o1 + &quot; == null&quot;);</span>
+        }
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (o2.equals(null)) {</span>
+<span class="nc" id="L100">            throw new AssertionError(&quot;Did not expect &quot; + o2 + &quot; == null&quot;);</span>
+        }
+        // CHECKSTYLE:ON
+
+        // hash code validity
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (o1.hashCode() != o2.hashCode()) {</span>
+<span class="fc" id="L106">            throw new AssertionError(String.format(&quot;Expected hash code of %s (%d) == %s (%d)&quot;, o1, o1.hashCode(), o2, o2.hashCode()));</span>
+        }
+<span class="fc" id="L108">    }</span>
+
+    /**
+     * Take a single object and ensure its equality is implemented correctly.
+     *
+     * @param &lt;T&gt;
+     *            type
+     * @param o
+     *            object
+     */
+    public static &lt;T&gt; void assertEqualsImplementedCorrectly(final T o) {
+
+<span class="fc" id="L120">        assertEqualsImplementedCorrectly(o, o);</span>
+<span class="fc" id="L121">    }</span>
+
+    /**
+     * Prevent instantiation of utility class.
+     */
+<span class="fc" id="L126">    private EqualsTestUtil() {</span>
+
+<span class="fc" id="L128">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

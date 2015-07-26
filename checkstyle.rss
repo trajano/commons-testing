@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2012 - 2015 Trajano</copyright>
     <item>
-      <title>File: 7,
+      <title>File: 9,
              Errors: 0,
-             Warnings: 1,
+             Warnings: 0,
              Infos: 0
       </title>
             <link>http://site.trajano.net/trajano/commons-testing//checkstyle.html</link>
@@ -116,6 +116,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://site.trajano.net/trajano/commons-testing//checkstyle.html#net.trajano.commons.testing.ResourceUtil.java">net/trajano/commons/testing/ResourceUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://site.trajano.net/trajano/commons-testing//checkstyle.html#net.trajano.commons.testing.DisableSslCertificateCheckUtil.java">net/trajano/commons/testing/DisableSslCertificateCheckUtil.java</a>
                 </td>
                 <td>
@@ -136,7 +150,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://site.trajano.net/trajano/commons-testing//checkstyle.html#net.trajano.commons.testing.EqualsTestUtil.java">net/trajano/commons/testing/EqualsTestUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0

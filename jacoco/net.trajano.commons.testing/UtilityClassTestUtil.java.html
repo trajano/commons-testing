@@ -14,11 +14,11 @@ import java.util.ResourceBundle;
  * @author Archimedes Trajano
  */
 public final class UtilityClassTestUtil {
+
     /**
      * Resource bundle.
      */
-<span class="fc" id="L20">    private static final ResourceBundle R = ResourceBundle</span>
-            .getBundle(&quot;META-INF.Messages&quot;);
+<span class="fc" id="L21">    private static final ResourceBundle R = ResourceBundle.getBundle(&quot;META-INF.Messages&quot;);</span>
 
     /**
      * A utility class class is well defined if it is final and there is one and
@@ -28,38 +28,35 @@ public final class UtilityClassTestUtil {
      *            class to evaluate
      */
     private static void assertUtilityClassClassWellDefined(final Class&lt;?&gt; clazz) {
-<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (!Modifier.isFinal(clazz.getModifiers())) {</span>
-<span class="fc" id="L32">            throw new AssertionError(MessageFormat.format(</span>
-                    R.getString(&quot;UtilityClassTestUtil.notFinal&quot;), //$NON-NLS-1$
+
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (!Modifier.isFinal(clazz.getModifiers())) {</span>
+<span class="fc" id="L33">            throw new AssertionError(MessageFormat.format(R.getString(&quot;UtilityClassTestUtil.notFinal&quot;), //$NON-NLS-1$</span>
                     clazz));
         }
 <span class="fc bfc" id="L36" title="All 2 branches covered.">        if (clazz.getDeclaredConstructors().length != 1) {</span>
-<span class="fc" id="L37">            throw new AssertionError(MessageFormat.format(</span>
-                    R.getString(&quot;UtilityClassTestUtil.notOneConstructor&quot;), //$NON-NLS-1$
+<span class="fc" id="L37">            throw new AssertionError(MessageFormat.format(R.getString(&quot;UtilityClassTestUtil.notOneConstructor&quot;), //$NON-NLS-1$</span>
                     clazz));
         }
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L40">    }</span>
 
     /**
      * A utility class constructor is well defined if it is private.
      *
      * @param constructor
+     *            constructor
      * @throws ReflectiveOperationException
      *             when there is a problem performing reflection on the class.
      */
-    private static void assertUtilityClassConstructorWellDefined(
-            final Constructor&lt;?&gt; constructor)
-                    throws ReflectiveOperationException {
-<span class="pc bpc" id="L53" title="1 of 4 branches missed.">        if (constructor.isAccessible()</span>
-                || !Modifier.isPrivate(constructor.getModifiers())) {
-<span class="fc" id="L55">            throw new AssertionError(MessageFormat.format(</span>
-                    R.getString(&quot;UtilityClassTestUtil.constructorNotPrivate&quot;), //$NON-NLS-1$
+    private static void assertUtilityClassConstructorWellDefined(final Constructor&lt;?&gt; constructor) throws ReflectiveOperationException {
+
+<span class="pc bpc" id="L52" title="1 of 4 branches missed.">        if (constructor.isAccessible() || !Modifier.isPrivate(constructor.getModifiers())) {</span>
+<span class="fc" id="L53">            throw new AssertionError(MessageFormat.format(R.getString(&quot;UtilityClassTestUtil.constructorNotPrivate&quot;), //$NON-NLS-1$</span>
                     constructor));
         }
-<span class="fc" id="L59">        constructor.setAccessible(true);</span>
-<span class="fc" id="L60">        constructor.newInstance();</span>
-<span class="fc" id="L61">        constructor.setAccessible(false);</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L56">        constructor.setAccessible(true);</span>
+<span class="fc" id="L57">        constructor.newInstance();</span>
+<span class="fc" id="L58">        constructor.setAccessible(false);</span>
+<span class="fc" id="L59">    }</span>
 
     /**
      * Methods of a utility class should be static if it was defined on the
@@ -68,17 +65,16 @@ public final class UtilityClassTestUtil {
      * @param clazz
      *            class to evaluate
      */
-    private static void assertUtilityClassMethodsWellDefined(
-            final Class&lt;?&gt; clazz) {
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        for (final Method method : clazz.getMethods()) {</span>
-<span class="fc bfc" id="L74" title="All 4 branches covered.">            if (!Modifier.isStatic(method.getModifiers())</span>
-                    &amp;&amp; method.getDeclaringClass().equals(clazz)) {
-<span class="fc" id="L76">                throw new AssertionError(MessageFormat.format(</span>
-                        R.getString(&quot;UtilityClassTestUtil.methodNotStatic&quot;), //$NON-NLS-1$
+    private static void assertUtilityClassMethodsWellDefined(final Class&lt;?&gt; clazz) {
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (final Method method : clazz.getMethods()) {</span>
+<span class="fc bfc" id="L71" title="All 4 branches covered.">            if (!Modifier.isStatic(method.getModifiers()) &amp;&amp; method.getDeclaringClass()</span>
+                    .equals(clazz)) {
+<span class="fc" id="L73">                throw new AssertionError(MessageFormat.format(R.getString(&quot;UtilityClassTestUtil.methodNotStatic&quot;), //$NON-NLS-1$</span>
                         method));
             }
         }
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L77">    }</span>
 
     /**
      * Verifies that a utility class is well defined.
@@ -88,18 +84,19 @@ public final class UtilityClassTestUtil {
      * @throws ReflectiveOperationException
      *             problem accessing the class or its elements using reflection.
      */
-    public static void assertUtilityClassWellDefined(final Class&lt;?&gt; clazz)
-            throws ReflectiveOperationException {
-<span class="fc" id="L93">        assertUtilityClassClassWellDefined(clazz);</span>
-<span class="fc" id="L94">        final Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor();</span>
-<span class="fc" id="L95">        assertUtilityClassConstructorWellDefined(constructor);</span>
-<span class="fc" id="L96">        assertUtilityClassMethodsWellDefined(clazz);</span>
-<span class="fc" id="L97">    }</span>
+    public static void assertUtilityClassWellDefined(final Class&lt;?&gt; clazz) throws ReflectiveOperationException {
+
+<span class="fc" id="L89">        assertUtilityClassClassWellDefined(clazz);</span>
+<span class="fc" id="L90">        final Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor();</span>
+<span class="fc" id="L91">        assertUtilityClassConstructorWellDefined(constructor);</span>
+<span class="fc" id="L92">        assertUtilityClassMethodsWellDefined(clazz);</span>
+<span class="fc" id="L93">    }</span>
 
     /**
      * Prevent instantiation of utility class.
      */
-<span class="fc" id="L102">    private UtilityClassTestUtil() {</span>
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L98">    private UtilityClassTestUtil() {</span>
+
+<span class="fc" id="L100">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
